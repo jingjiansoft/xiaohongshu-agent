@@ -2,7 +2,7 @@
   "name": "xiaohongshu-agent",
   "version": "1.0.0",
   "description": "小红书自动发布 Agent - AI 生成内容 + 自动发布",
-  "main": "electron/main.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
@@ -17,9 +17,6 @@
     "publish:content": "./node_modules/.bin/tsx src/cli.ts publish",
     "test:publish": "./node_modules/.bin/tsx src/cli.ts publish -t \"测试一下\" -s \"生活分享\" --no-publish",
     "test:login": "./node_modules/.bin/tsx src/test-login.ts",
-    "electron:dev": "./electron-dev.sh",
-    "electron:build": "npm run build && cd web && npm run build && electron-builder",
-    "electron:pack": "electron-builder --dir",
     "install:browser": "npx playwright install chromium"
   },
   "keywords": [
@@ -66,10 +63,6 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.19.37",
-    "concurrently": "^8.2.2",
-    "electron": "^28.3.3",
-    "electron-builder": "^24.9.1",
-    "typescript": "^5.9.3",
-    "wait-on": "^7.2.0"
+    "typescript": "^5.9.3"
   }
 }

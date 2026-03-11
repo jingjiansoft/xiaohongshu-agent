@@ -48,6 +48,3 @@ temp/
 
 # Claude
 .claude
-
-# Electron build output
-dist-electron/

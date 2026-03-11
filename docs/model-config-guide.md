@@ -157,5 +157,5 @@ xiaohongshu-agent/
 ## 📞 获取帮助
 
 如有问题，请查看：
-- GitHub Issues: https://github.com/YOUR_ORG/xiaohongshu-agent/issues
+- GitHub Issues: https://github.com/jingjiansoft/xiaohongshu-agent/issues
 - README.md: 完整使用文档

@@ -30,7 +30,7 @@
 
 ```bash
 # 1. 下载项目
-git clone https://github.com/YOUR_ORG/xiaohongshu-agent.git
+git clone https://github.com/jingjiansoft/xiaohongshu-agent.git
 cd xiaohongshu-agent
 
 # 2. 安装依赖
@@ -357,7 +357,7 @@ npm run publish:content -- -t "健康早餐" -s "生活分享" --no-publish
 
 ### 2. GitHub Issues
 
-https://github.com/YOUR_ORG/xiaohongshu-agent/issues
+https://github.com/jingjiansoft/xiaohongshu-agent/issues
 
 - 提交 Bug 反馈
 - 提出功能建议
