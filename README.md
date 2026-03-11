@@ -1,6 +1,6 @@
 # 小红书自动发布 Agent
 
-🤖 多模型接入 · AI 生成内容 · 自动发布 · 可视化操作界面 · 桌面应用
+🤖 多模型接入 · AI 生成内容 · 自动发布 · 可视化操作界面
 
 ## ✨ 功能特性
 
@@ -9,7 +9,6 @@
 - 🖼️ **图片生成**: 通义万相，CogView, DALL-E, MiniMax
 - 🎬 **视频生成**: MiniMax Video
 - 🌐 **可视化界面**: Next.js Web UI，支持内容预览和一键发布
-- 💻 **桌面应用**: 支持 Windows/macOS/Linux，下载即用，无需配置环境
 - ⚙️ **用户配置管理**: 在线管理个人背景、内容偏好、发布设置
 - 🤖 **自动化发布**: 浏览器自动化，Cookie 持久化登录
 - 🎨 **7 种内容风格**: 清新自然、专业干货、生活分享、种草推荐、情感共鸣、幽默搞笑、文艺复古
@@ -17,28 +16,7 @@
 
 ## 🚀 快速开始
 
-### 方式 1：使用桌面应用（推荐）
-
-**下载最新版本：**
-- 访问 [GitHub Releases](https://github.com/jingjiansoft/xiaohongshu-agent/releases)
-- 下载对应系统的安装包：
-  - Windows: `小红书自动发布 Agent Setup.exe`
-  - macOS: `小红书自动发布 Agent.dmg`
-  - Linux: `小红书自动发布 Agent.deb`
-
-**安装后：**
-1. 双击安装
-2. 配置 API Key（文本模型、图片模型）
-3. 登录小红书（自动打开浏览器）
-4. 开始使用！
-
-> 💡 桌面应用已内置所有依赖，无需安装 Node.js，无需配置环境
-
----
-
-### 方式 2：Web 版（开发者）
-
-#### 1. 安装依赖
+### 1. 安装依赖
 
 ```bash
 # 安装后端依赖
@@ -50,7 +28,7 @@ npm install
 cd ..
 ```
 
-##### 2. 配置模型 API Key
+### 2. 配置模型 API Key
 
 **方式 1：通过 Web 界面配置（推荐）**
 
@@ -84,7 +62,7 @@ cp config/model-config.example.json config/model-config.json
 
 > 💡 提示：配置文件 `config/model-config.json` 不会被提交到 Git，请妥善保管
 
-#### 3. 登录小红书（首次使用）
+### 3. 登录小红书（首次使用）
 
 ```bash
 npm run test:login
@@ -92,14 +70,14 @@ npm run test:login
 
 在浏览器中完成登录，Cookie 会自动保存到 `config/cookies.json`。
 
-#### 4. 配置用户信息（可选）
+### 4. 配置用户信息（可选）
 
 访问 http://localhost:3000/settings 配置：
 - 个人背景（博主名称、定位、目标受众）
 - 内容偏好（常用话题、关键词、禁用词）
 - 发布设置（发布时间、频率、自动发布）
 
-#### 5. 启动应用
+### 5. 启动应用
 
 **方式 1：一键启动（推荐）**
 ```bash
@@ -150,11 +128,6 @@ xiaohongshu-agent/
 │   │   └── cookie-manager.ts # Cookie 管理
 │   ├── cli.ts                # 命令行工具
 │   └── test-login.ts         # 登录测试脚本
-├── electron/                 # Electron 桌面应用
-│   ├── main.js               # 主进程
-│   ├── preload.js            # 预加载脚本
-│   ├── login-manager.js      # 登录管理器
-│   └── icon.png              # 应用图标
 ├── web/                      # Next.js Web 界面
 │   ├── src/
 │   │   ├── app/
@@ -170,7 +143,6 @@ xiaohongshu-agent/
 │   └── user-profile.json     # 用户配置（.gitignore）
 ├── prompts/
 │   └── prompts.json          # 提示词模板配置
-├── electron-builder.json     # Electron 打包配置
 ├── .env.example              # 环境变量示例
 └── start.sh                  # 一键启动脚本
 ```
@@ -223,56 +195,7 @@ npm run test:login
 
 # 健康检查
 npm run health
-
-# 安装浏览器（Electron 打包前必需）
-npm run install:browser
-
-# 打包桌面应用
-npm run electron:build
 ```
-
-## 📦 桌面应用打包
-
-### 构建流程
-
-```bash
-# 1. 安装浏览器（必需）
-npm run install:browser
-
-# 2. 编译 TypeScript
-npm run build
-
-# 3. 构建 Web 应用
-cd web && npm run build
-
-# 4. 打包 Electron
-npm run electron:build
-```
-
-### 安装包位置
-
-构建完成后，安装包在 `dist-electron/` 目录：
-
-| 系统 | 安装包 |
-|------|--------|
-| Windows | 小红书自动发布 Agent Setup.exe |
-| macOS | 小红书自动发布 Agent.dmg |
-| Linux | 小红书自动发布 Agent.deb |
-
-### 跨平台打包
-
-```bash
-# 打包 Windows
-npm run electron:build:win
-
-# 打包 macOS
-npm run electron:build:mac
-
-# 打包 Linux
-npm run electron:build:linux
-```
-
-> 💡 提示：桌面应用已内置 Playwright 浏览器，无需单独安装 Node.js 或配置环境
 
 ## 🎯 内容风格
 
@@ -374,19 +297,6 @@ npm run test:publish
 2. 在 `styles` 中添加新风格配置
 3. 无需重启，自动生效
 
-### 桌面应用开发
-
-```bash
-# 开发模式（热重载）
-npm run electron:dev
-
-# 打包构建
-npm run electron:build
-
-# 只打包不构建（快速测试）
-npm run electron:pack
-```
-
 ### 测试
 
 ```bash
@@ -410,7 +320,7 @@ npm run health
 ## ❓ 常见问题
 
 ### Q: 提示"登录已过期"怎么办？
-A: 运行 `npm run test:login` 重新登录，Cookie 会自动更新。桌面应用会自动打开浏览器引导登录。
+A: 运行 `npm run test:login` 重新登录，Cookie 会自动更新。
 
 ### Q: 内容生成失败？
 A: 检查 API Key 是否正确配置，确保账户有余额。
@@ -423,27 +333,6 @@ A: 编辑 `prompts/prompts.json`，保存后自动生效。
 
 ### Q: 用户配置保存在哪？
 A: `config/user-profile.json`，已通过 `.gitignore` 保护，不会提交到 Git。
-
-### Q: 桌面应用打包后无法启动？
-A: 检查：
-1. 是否运行 `npm run install:browser` 安装浏览器
-2. `dist-electron/` 目录是否包含 `ms-playwright` 文件夹
-3. 查看应用日志获取详细错误信息
-
-### Q: 如何减小桌面应用包体积？
-A:
-1. 只打包 Chromium 浏览器（已配置）
-2. 使用 ASAR 压缩
-3. 移除不必要的依赖
-
-### Q: macOS 提示"无法打开"？
-A:
-1. 右键点击应用，选择"打开"
-2. 或在系统偏好设置 → 安全性与隐私中允许
-3. 最佳方案：进行代码签名
-
-### Q: Windows 提示"未知发布者"？
-A: 这是未签名应用的正常提示，点击"仍要运行"即可。
 
 ## 🤝 贡献
 
@@ -458,9 +347,4 @@ MIT
 **创建者**: Vick
 **组织**: jingjiansoft
 **GitHub**: https://github.com/jingjiansoft/xiaohongshu-agent
-**文档最后更新**: 2026-03-07
-
-## 📚 相关文档
-
-- [Electron 打包问题修复总结](docs/ELECTRON-FIXES.md)
-- [桌面应用打包指南](docs/electron-packaging.md)
+**文档最后更新**: 2026-03-11
