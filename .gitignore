@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+web/out/
+web/.next/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cookie and secrets (敏感信息)
+config/cookies.json
+config/model-config.json
+config/user-profile.json
+.secrets/
+
+# Data directory (SQLite databases, session data)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+coverage/
+temp/
+.nyc_output/
+
+# Claude
+.claude
+
+# Electron build output
+dist-electron/

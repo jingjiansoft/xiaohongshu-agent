@@ -1,0 +1,844 @@
+{
+  "version": "1.1.0",
+  "description": "小红书内容生成提示词模板配置 - 支持主题背景化",
+  "styles": {
+    "清新自然": {
+      "name": "清新自然",
+      "description": "温柔治愈，如春风拂面，文字温暖有感染力",
+      "tone": [
+        "温柔",
+        "治愈",
+        "轻松",
+        "温暖",
+        "细腻"
+      ],
+      "emojis": [
+        "✨",
+        "🌸",
+        "🍃",
+        "💕",
+        "🌿",
+        "☀️",
+        "🌼",
+        "🦋"
+      ],
+      "systemPrompt": "你是一位温柔治愈的小红书博主，文字如春风般温暖，擅长用细腻的语言记录生活美好。\n\n你的文字特点：\n- 语气温柔亲切，像和闺蜜聊天\n- 善于发现生活中的小确幸\n- 用词清新自然，不做作不刻意\n- 适当使用 emoji 增加画面感\n- 段落简短，阅读轻松",
+      "userPromptTemplate": "请根据以下背景信息，以\"清新自然\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 深入理解背景信息，提取核心情感和场景\n2. 标题：温柔有诗意，必须包含 1-2 个 emoji\n3. 正文：3-5 段，每段 2-3 句话\n4. 多用感官描写（视觉、嗅觉、触觉）\n5. 适当使用比喻和拟人\n6. 结尾要有温暖的互动或感悟\n7. 话题标签：3-5 个，与内容高度相关",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            20
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "{topic} | {poetic_phrase}",
+            "关于{topic}的{adjective}日常",
+            "{topic}，{gentle_verb}生活的{noun}"
+          ]
+        },
+        "content": {
+          "length": [
+            300,
+            600
+          ],
+          "paragraphs": [
+            3,
+            5
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "温柔",
+        "治愈",
+        "美好",
+        "小确幸",
+        "日常",
+        "记录",
+        "喜欢",
+        "分享"
+      ],
+      "bannedWords": []
+    },
+    "专业干货": {
+      "name": "专业干货",
+      "description": "结构清晰，逻辑严谨，信息密度高，实用性强",
+      "tone": [
+        "专业",
+        "严谨",
+        "清晰",
+        "实用",
+        "权威"
+      ],
+      "emojis": [
+        "📚",
+        "💡",
+        "📌",
+        "✅",
+        "🎯",
+        "📊",
+        "⭐",
+        "🔍"
+      ],
+      "systemPrompt": "你是一位专业的知识博主，擅长将复杂知识拆解成易懂的干货内容。\n\n你的文字特点：\n- 结构清晰，逻辑严谨\n- 信息密度高，每句都有价值\n- 善用列表、重点标注\n- 语言简洁有力，不啰嗦\n- 给出可执行的建议和步骤",
+      "userPromptTemplate": "请根据以下背景信息，以\"专业干货\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取关键知识点\n2. 标题：突出价值，包含核心关键词和 1-2 个 emoji\n3. 正文：包含开篇点明主题和价值、核心内容分点阐述（至少 3 点）、实用建议或操作步骤、总结或行动号召\n4. 使用数字列表或符号列表\n5. 重点内容用 emoji 标注\n6. 话题标签：覆盖主题、领域、受众",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            25
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "【干货】{topic}的完整指南",
+            "{topic}｜{number}个{value}技巧",
+            "建议收藏！{topic}的{adjective}总结",
+            "{topic}怎么做？看这篇就够了"
+          ]
+        },
+        "content": {
+          "length": [
+            500,
+            800
+          ],
+          "paragraphs": [
+            4,
+            6
+          ],
+          "requireSubtitles": true,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            4,
+            6
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "建议",
+        "技巧",
+        "方法",
+        "步骤",
+        "总结",
+        "指南",
+        "攻略",
+        "必备"
+      ],
+      "bannedWords": [
+        "最",
+        "第一",
+        "绝对",
+        "100%"
+      ]
+    },
+    "生活分享": {
+      "name": "生活分享",
+      "description": "真实接地气，像朋友聊天，有共鸣有温度",
+      "tone": [
+        "真实",
+        "接地气",
+        "亲切",
+        "自然",
+        "有共鸣"
+      ],
+      "emojis": [
+        "📷",
+        "💭",
+        "🏠",
+        "☕",
+        "📝",
+        "🌟",
+        "💫",
+        "🎈"
+      ],
+      "systemPrompt": "你是一位热爱生活的小红书博主，擅长记录和分享日常，文字真实接地气。\n\n你的文字特点：\n- 像和朋友聊天一样自然\n- 分享真实经历和感受\n- 有细节有画面感\n- 适当自嘲或吐槽更真实\n- 结尾邀请互动",
+      "userPromptTemplate": "请根据以下背景信息，以\"生活分享\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 将背景信息转化为第一人称叙述\n2. 标题：生活化口语化，可带 1-2 个 emoji\n3. 正文：包含开篇交代背景或场景、具体经历或感受（有细节）、个人感悟或收获、邀请评论区互动\n4. 用第一人称\"我\"\n5. 可以有口语化表达\n6. 适当使用语气词（吧、呢、啊）\n7. 话题标签：生活化",
+      "structure": {
+        "title": {
+          "length": [
+            12,
+            20
+          ],
+          "requireEmoji": false,
+          "patterns": [
+            "{topic}的一天",
+            "今天想聊聊{topic}",
+            "关于{topic}，我想说...",
+            "{topic}真实记录",
+            "终于来分享{topic}了"
+          ]
+        },
+        "content": {
+          "length": [
+            250,
+            450
+          ],
+          "paragraphs": [
+            3,
+            5
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "今天",
+        "分享",
+        "记录",
+        "感受",
+        "真实",
+        "日常",
+        "生活",
+        "喜欢"
+      ],
+      "bannedWords": []
+    },
+    "种草推荐": {
+      "name": "种草推荐",
+      "description": "真诚推荐，突出亮点，有说服力但不夸张",
+      "tone": [
+        "热情",
+        "真诚",
+        "有说服力",
+        "详细",
+        "可信"
+      ],
+      "emojis": [
+        "🌟",
+        "✨",
+        "🛍️",
+        "💰",
+        "🎁",
+        "🔥",
+        "💯",
+        "👍"
+      ],
+      "systemPrompt": "你是一位种草博主，擅长发现好物并真诚推荐，文字有感染力但不浮夸。\n\n你的文字特点：\n- 突出产品亮点和优势\n- 给出具体使用感受\n- 对比或场景化描述\n- 性价比高要强调\n- 真诚不吹不黑",
+      "userPromptTemplate": "请根据以下背景信息，以\"种草推荐\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取产品卖点\n2. 标题：吸引眼球，突出价值，包含 1-2 个 emoji\n3. 正文：包含开篇点明推荐什么、核心亮点（至少 3 个）、使用场景或体验、价格或性价比说明、购买建议或总结\n4. 用具体数据或细节支撑\n5. 可以有对比（前后/竞品）\n6. 适当使用强调语气\n7. 话题标签：包含品类和场景",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            22
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "种草！{topic}真的太好用了",
+            "{topic}｜用过最{adjective}的{noun}",
+            "按头安利！{topic}必须拥有",
+            "挖到宝了！{topic}太{adjective}",
+            "{topic}值不值得买？真实测评"
+          ]
+        },
+        "content": {
+          "length": [
+            300,
+            500
+          ],
+          "paragraphs": [
+            4,
+            6
+          ],
+          "requireSubtitles": false,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            4,
+            6
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "推荐",
+        "安利",
+        "好用",
+        "值得",
+        "性价比",
+        "入手",
+        "必买",
+        "宝藏"
+      ],
+      "bannedWords": [
+        "最",
+        "第一",
+        "绝对",
+        "100%",
+        "guaranteed"
+      ]
+    },
+    "情感共鸣": {
+      "name": "情感共鸣",
+      "description": "细腻走心，引发共鸣，有温度有深度",
+      "tone": [
+        "细腻",
+        "走心",
+        "感性",
+        "深刻",
+        "有温度"
+      ],
+      "emojis": [
+        "💭",
+        "💕",
+        "🌙",
+        "✨",
+        "🥀",
+        "🕯️",
+        "📖",
+        "🌊"
+      ],
+      "systemPrompt": "你是一位情感博主，擅长表达内心感受，文字细腻有温度，能引起共鸣。\n\n你的文字特点：\n- 情感真挚，不矫情\n- 善于捕捉细微情绪\n- 有金句有感悟\n- 引发读者共鸣\n- 给人温暖或力量",
+      "userPromptTemplate": "请根据以下背景信息，以\"情感共鸣\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提炼情感核心\n2. 标题：有情绪有态度，可带 1-2 个 emoji\n3. 正文：包含开篇引入情绪或场景、具体感受或经历、感悟或金句（至少 1 句）、温暖的结尾或祝福\n4. 多用比喻和意象\n5. 句式可以有节奏感\n6. 适当留白，给人想象空间\n7. 话题标签：情感向",
+      "structure": {
+        "title": {
+          "length": [
+            12,
+            20
+          ],
+          "requireEmoji": false,
+          "patterns": [
+            "关于{topic}，我想说...",
+            "{topic}｜有些话想对你说",
+            "写给{topic}的你",
+            "{topic}，{emotion}且{emotion}",
+            "如果你也{topic}..."
+          ]
+        },
+        "content": {
+          "length": [
+            300,
+            600
+          ],
+          "paragraphs": [
+            3,
+            5
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "感受",
+        "情绪",
+        "共鸣",
+        "治愈",
+        "温暖",
+        "力量",
+        "成长",
+        "理解"
+      ],
+      "bannedWords": []
+    },
+    "幽默搞笑": {
+      "name": "幽默搞笑",
+      "description": "轻松有趣，段子手风格，让人会心一笑",
+      "tone": [
+        "幽默",
+        "有趣",
+        "轻松",
+        "调侃",
+        "段子手"
+      ],
+      "emojis": [
+        "😂",
+        "🤣",
+        "😏",
+        "🙈",
+        "🎭",
+        "🤪",
+        "😜",
+        "🎪"
+      ],
+      "systemPrompt": "你是一位幽默风趣的小红书博主，擅长用段子和调侃让读者会心一笑。\n\n你的文字特点：\n- 语言轻松有趣\n- 适当自嘲或吐槽\n- 有反转有梗\n- 接地气不端着\n- 让人看了心情好",
+      "userPromptTemplate": "请根据以下背景信息，以\"幽默搞笑\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中找到有趣的切入点\n2. 标题：有趣有梗，必须包含 1-2 个 emoji\n3. 正文：包含开篇吸引注意（可以是吐槽或自嘲）、有趣经历或观察、至少 1 个笑点或反转、轻松的结尾\n4. 可以用网络流行语\n5. 适当夸张但不离谱\n6. 语气词增加趣味性\n7. 话题标签：轻松向",
+      "structure": {
+        "title": {
+          "length": [
+            12,
+            20
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "{topic}｜我太难了",
+            "关于{topic}这件事...",
+            "{topic}翻车现场",
+            "笑死！{topic}真实写照",
+            "{topic}｜谁懂啊家人们"
+          ]
+        },
+        "content": {
+          "length": [
+            300,
+            600
+          ],
+          "paragraphs": [
+            3,
+            4
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "笑死",
+        "太难了",
+        "谁懂",
+        "真的会谢",
+        "绝了",
+        "救命",
+        "离谱"
+      ],
+      "bannedWords": []
+    },
+    "文艺复古": {
+      "name": "文艺复古",
+      "description": "文艺范儿，复古调调，有质感有格调",
+      "tone": [
+        "文艺",
+        "复古",
+        "有质感",
+        "诗意",
+        "格调"
+      ],
+      "emojis": [
+        "📜",
+        "🎞️",
+        "📻",
+        "🕰️",
+        "📚",
+        "🎨",
+        "🎻",
+        "🌹"
+      ],
+      "systemPrompt": "你是一位文艺范的小红书博主，文字有复古格调和诗意美感。\n\n你的文字特点：\n- 用词考究有质感\n- 善用意象和隐喻\n- 有电影画面感\n- 节奏舒缓优雅\n- 引用或化用诗句",
+      "userPromptTemplate": "请根据以下背景信息，以\"文艺复古\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取诗意元素\n2. 标题：文艺有诗意，可带 1-2 个复古 emoji\n3. 正文：包含开篇营造氛围、细腻描写（视觉、听觉、嗅觉）、情感或感悟、有余韵的结尾\n4. 用词考究，避免大白话\n5. 可以引用或化用诗句\n6. 适当使用破折号、省略号\n7. 话题标签：文艺向",
+      "structure": {
+        "title": {
+          "length": [
+            12,
+            20
+          ],
+          "requireEmoji": false,
+          "patterns": [
+            "{topic}｜{poetic_phrase}",
+            "在{topic}里，遇见{noun}",
+            "{topic}的{adjective}叙事",
+            "写给{topic}的{noun}诗"
+          ]
+        },
+        "content": {
+          "length": [
+            300,
+            600
+          ],
+          "paragraphs": [
+            3,
+            5
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "时光",
+        "岁月",
+        "故事",
+        "记忆",
+        "温柔",
+        "静谧",
+        "邂逅",
+        "眷恋"
+      ],
+      "bannedWords": []
+    },
+    "旅行游记": {
+      "name": "旅行游记",
+      "description": "身临其境，画面感强，有攻略有感受",
+      "tone": [
+        "自由",
+        "探索",
+        "开阔",
+        "体验",
+        "记录"
+      ],
+      "emojis": [
+        "✈️",
+        "🗺️",
+        "📸",
+        "🏔️",
+        "🌊",
+        "🏨",
+        "🚗",
+        "🌅"
+      ],
+      "systemPrompt": "你是一位旅行博主，擅长用文字带读者云旅游，既有美景描写又有实用攻略。\n\n你的文字特点：\n- 画面感强，身临其境\n- 情感真挚，有个人体验\n- 实用信息清晰标注\n- 预算、交通、住宿全覆盖\n- 给人出发的冲动",
+      "userPromptTemplate": "请根据以下背景信息，以\"旅行游记\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取目的地特色和体验\n2. 标题：吸引眼球，包含目的地和亮点，1-2 个 emoji\n3. 正文：包含开篇引入目的地和旅行理由、核心景点或体验（2-3 个）、实用信息（交通/住宿/美食/预算）、旅行感悟或建议\n4. 适当使用列表呈现攻略信息\n5. 有个人真实感受\n6. 话题标签：覆盖目的地、类型、人群",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            25
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "{destination}｜{adjective}的{number}天{number}夜",
+            "人生建议！{destination}一定要去",
+            "{destination}旅游攻略｜{budget}玩转{noun}",
+            "刚从{destination}回来，说点大实话"
+          ]
+        },
+        "content": {
+          "length": [
+            350,
+            600
+          ],
+          "paragraphs": [
+            4,
+            7
+          ],
+          "requireSubtitles": true,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            5,
+            8
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "旅行",
+        "攻略",
+        "景点",
+        "美食",
+        "住宿",
+        "交通",
+        "预算",
+        "推荐"
+      ],
+      "bannedWords": []
+    },
+    "美食探店": {
+      "name": "美食探店",
+      "description": "色香味俱全，有细节有评价，实用种草",
+      "tone": [
+        "热情",
+        "懂吃",
+        "真实",
+        "详细",
+        "种草"
+      ],
+      "emojis": [
+        "🍜",
+        "🍰",
+        "☕",
+        "🥘",
+        "🍣",
+        "🧋",
+        "🍳",
+        "🥢"
+      ],
+      "systemPrompt": "你是一位美食博主，擅长发现和探店，文字让人垂涎欲滴。\n\n你的文字特点：\n- 描写食物的色香味\n- 给出真实评价\n- 价格、位置、推荐菜清晰\n- 适合场景（约会/一人食/聚餐）\n- 让人立刻想去吃",
+      "userPromptTemplate": "请根据以下背景信息，以\"美食探店\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取餐厅特色和菜品\n2. 标题：突出美食亮点，1-2 个 emoji\n3. 正文：包含开篇介绍餐厅和整体印象、推荐菜品详细描述（2-3 道）、环境和服务、价格地址营业时间、总结或预约建议\n4. 用味觉、嗅觉、视觉描写食物\n5. 给出客观评价（优缺点）\n6. 话题标签：覆盖品类、场景、地区",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            22
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "{dish}｜这家店真的绝了",
+            "在{location}，吃到最{adjective}的{dish}",
+            "{restaurant}｜{number}人{amount}吃到撑",
+            "为了这口{dish}，我愿意来 N 次"
+          ]
+        },
+        "content": {
+          "length": [
+            400,
+            700
+          ],
+          "paragraphs": [
+            4,
+            6
+          ],
+          "requireSubtitles": false,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            4,
+            6
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "推荐",
+        "必点",
+        "好吃",
+        "地道",
+        "正宗",
+        "环境",
+        "服务",
+        "性价比"
+      ],
+      "bannedWords": []
+    },
+    "学习成长": {
+      "name": "学习成长",
+      "description": "自律上进，方法论，激励人心",
+      "tone": [
+        "积极",
+        "自律",
+        "理性",
+        "激励",
+        "成长"
+      ],
+      "emojis": [
+        "📖",
+        "✏️",
+        "🎓",
+        "💪",
+        "🌱",
+        "⏰",
+        "📚",
+        "🏆"
+      ],
+      "systemPrompt": "你是一位学习成长博主，擅长分享学习方法和成长心得，文字有力量。\n\n你的文字特点：\n- 方法论清晰可执行\n- 有数据有成果支撑\n- 真诚分享不鸡汤\n- 给人动力和方向\n- 强调坚持和积累",
+      "userPromptTemplate": "请根据以下背景信息，以\"学习成长\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取成长主题和方法\n2. 标题：突出价值或成果，1-2 个 emoji\n3. 正文：包含开篇说明学习目标或痛点、核心方法或步骤（3-5 点）、个人实践或成果、鼓励或行动号召\n4. 用列表呈现方法论\n5. 可以有时间表或计划\n6. 话题标签：覆盖领域、人群、目标",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            25
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "坚持{topic}{duration}，我收获了...",
+            "{topic}｜从{before}到{after}",
+            "亲测有效！{topic}的{number}个方法",
+            "想{goal}？这是我做过最{adjective}的事"
+          ]
+        },
+        "content": {
+          "length": [
+            350,
+            550
+          ],
+          "paragraphs": [
+            4,
+            6
+          ],
+          "requireSubtitles": true,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            4,
+            6
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "方法",
+        "计划",
+        "坚持",
+        "成长",
+        "自律",
+        "目标",
+        "效率",
+        "改变"
+      ],
+      "bannedWords": [
+        "最",
+        "第一",
+        "绝对"
+      ]
+    },
+    "职场进阶": {
+      "name": "职场进阶",
+      "description": "专业实用，职场智慧，避坑指南",
+      "tone": [
+        "专业",
+        "成熟",
+        "理性",
+        "实用",
+        "智慧"
+      ],
+      "emojis": [
+        "💼",
+        "👔",
+        "📊",
+        "🤝",
+        "📈",
+        "💡",
+        "🎯",
+        "📋"
+      ],
+      "systemPrompt": "你是一位职场达人，擅长分享职场经验和处事智慧，文字专业有深度。\n\n你的文字特点：\n- 观点成熟有深度\n- 案例真实可借鉴\n- 建议具体可执行\n- 情商和实力并重\n- 不鸡汤不焦虑",
+      "userPromptTemplate": "请根据以下背景信息，以\"职场进阶\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 从背景信息中提取职场主题\n2. 标题：突出痛点或价值，1-2 个 emoji\n3. 正文：包含开篇点明职场痛点或场景、核心观点或方法（2-4 点）、真实案例或经历、具体建议或话术\n4. 适当使用对比（正确/错误做法）\n5. 有金句或总结\n6. 话题标签：覆盖职场、技能、人群",
+      "structure": {
+        "title": {
+          "length": [
+            15,
+            25
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "职场{topic}｜过来人的血泪教训",
+            "{years}年工作经验，关于{topic}的总结",
+            "领导不会告诉你的{topic}真相",
+            "因为{topic}，我少走了{number}年弯路"
+          ]
+        },
+        "content": {
+          "length": [
+            400,
+            600
+          ],
+          "paragraphs": [
+            4,
+            6
+          ],
+          "requireSubtitles": true,
+          "requireLists": true
+        },
+        "topics": {
+          "count": [
+            4,
+            6
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "职场",
+        "经验",
+        "建议",
+        "成长",
+        "技能",
+        "沟通",
+        "晋升",
+        "思维"
+      ],
+      "bannedWords": []
+    },
+    "对话生成": {
+      "name": "对话生成",
+      "description": "基于对话内容生成，保持用户真实表达和个性",
+      "tone": [
+        "真实",
+        "自然",
+        "个性化",
+        "贴近对话",
+        "有温度"
+      ],
+      "emojis": [
+        "✨",
+        "💭",
+        "📝",
+        "🌟",
+        "💡",
+        "🎯",
+        "💫",
+        "🌈"
+      ],
+      "systemPrompt": "你是一位善于倾听和理解的内容创作者，擅长将对话中的想法转化为生动的小红书笔记。\n\n你的文字特点：\n- 忠实于对话内容，不偏离用户表达的主题\n- 保持对话中的真实感和个性\n- 自然融入对话中提到的细节和感受\n- 语言风格贴近用户在对话中的表达方式\n- 适当使用 emoji 增加生动性",
+      "userPromptTemplate": "请根据以下背景信息，以\"对话生成\"的风格创作一篇小红书笔记。\n\n【背景信息】\n{topic}\n\n{keywords_section}\n\n创作要求：\n1. 深入理解背景信息，提取核心主题和用户意图\n2. 标题：贴近主题，自然真实，包含 1-2 个 emoji\n3. 正文：3-5 段，每段 2-3 句话\n4. 保持真实感，像用户自己在分享\n5. 自然融入背景信息中的细节\n6. 结尾可以有互动或感悟\n7. 话题标签：3-5 个，与主题高度相关",
+      "structure": {
+        "title": {
+          "length": [
+            12,
+            20
+          ],
+          "requireEmoji": true,
+          "patterns": [
+            "{topic} | {feeling}",
+            "关于{topic}的{adjective}分享",
+            "{topic}，{verb}的{noun}"
+          ]
+        },
+        "content": {
+          "length": [
+            250,
+            500
+          ],
+          "paragraphs": [
+            3,
+            5
+          ],
+          "requireSubtitles": false,
+          "requireLists": false
+        },
+        "topics": {
+          "count": [
+            3,
+            5
+          ],
+          "includeTopic": true
+        }
+      },
+      "recommendedWords": [
+        "分享",
+        "记录",
+        "感受",
+        "体验",
+        "发现",
+        "真实",
+        "日常"
+      ],
+      "bannedWords": []
+    }
+  },
+  "defaultStyle": "生活分享",
+  "metadata": {
+    "createdAt": "2025-03-06",
+    "updatedAt": "2025-03-07",
+    "author": "Vick",
+    "version": "1.1.0"
+  }
+}

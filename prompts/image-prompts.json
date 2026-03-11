@@ -1,0 +1,133 @@
+{
+  "version": "2.0.0",
+  "description": "小红书图片生成提示词模板配置 - 灵活视觉描述",
+  "styles": {
+    "清新自然": {
+      "name": "清新自然",
+      "description": "温柔治愈，如春风拂面",
+      "visualElements": ["柔和光线", "自然元素", "干净背景", "绿植点缀"],
+      "colorPalette": ["薄荷绿", "柔粉色", "暖白色", "淡蓝色"],
+      "shootingStyle": "自然光拍摄，柔和虚化背景，突出主体",
+      "mood": "peaceful, calming, serene, fresh"
+    },
+    "专业干货": {
+      "name": "专业干货",
+      "description": "结构清晰，信息密度高",
+      "visualElements": ["信息图表", "清晰排版", "有序布局", "重点标注"],
+      "colorPalette": ["海军蓝", " crisp 白色", "浅灰色", "冷色调"],
+      "shootingStyle": "工作室灯光，均匀照明，专业感",
+      "mood": "authoritative, trustworthy, clean, professional"
+    },
+    "生活分享": {
+      "name": "生活分享",
+      "description": "真实接地气，像朋友聊天",
+      "visualElements": ["生活场景", "真实瞬间", "温馨细节", "日常物品"],
+      "colorPalette": ["暖米色", "奶油色", "浅棕色", "温暖色调"],
+      "shootingStyle": "黄金时刻自然光， candid 抓拍视角，亲密感",
+      "mood": "warm, cozy, relatable, authentic"
+    },
+    "种草推荐": {
+      "name": "种草推荐",
+      "description": "真诚推荐，突出亮点",
+      "visualElements": ["产品展示", "质感细节", "使用场景", "对比效果"],
+      "colorPalette": ["高饱和色", "对比色", "吸睛配色"],
+      "shootingStyle": "专业产品光，聚光灯效果，主角视角",
+      "mood": "exciting, desirable, premium, attractive"
+    },
+    "情感共鸣": {
+      "name": "情感共鸣",
+      "description": "细腻走心，引发共鸣",
+      "visualElements": ["情绪氛围", "艺术表达", "光影对比", "故事感"],
+      "colorPalette": ["深蓝色", "温暖琥珀色", "柔紫色", "情绪色调"],
+      "shootingStyle": "戏剧性灯光，电影感，景深效果",
+      "mood": "emotional, touching, reflective, cinematic"
+    },
+    "幽默搞笑": {
+      "name": "幽默搞笑",
+      "description": "轻松有趣，段子手风格",
+      "visualElements": ["趣味元素", " playful 场景", "意外反转", "夸张表达"],
+      "colorPalette": ["明亮色", "对比色", "活力配色"],
+      "shootingStyle": "动态视角，夸张透视，明亮照明",
+      "mood": "fun, lighthearted, playful, energetic"
+    },
+    "文艺复古": {
+      "name": "文艺复古",
+      "description": "文艺范儿，复古调调",
+      "visualElements": ["复古元素", "怀旧物件", "胶片质感", "经典构图"],
+      "colorPalette": ["棕褐色调", "褪色感", "低饱和", "胶片色"],
+      "shootingStyle": "暖滤镜光，夕阳余晖，胶片摄影风格",
+      "mood": "nostalgic, artistic, poetic, vintage"
+    },
+    "旅行游记": {
+      "name": "旅行游记",
+      "description": "身临其境，有攻略有感受",
+      "visualElements": ["风景画面", "旅行目的地", "冒险氛围", "当地特色"],
+      "colorPalette": ["蓝天", "绿色自然", "鲜艳自然色"],
+      "shootingStyle": "广角镜头，横构图，展现规模感",
+      "mood": "adventurous, freeing, inspiring, exploratory"
+    },
+    "美食探店": {
+      "name": "美食探店",
+      "description": "色香味俱全",
+      "visualElements": ["美味食物", "诱人摆盘", "餐厅氛围", "热气腾腾"],
+      "colorPalette": ["暖色调", "丰富食物色", "诱人配色"],
+      "shootingStyle": "美食特写光，俯拍或 45 度角，突出食物质感",
+      "mood": "appetizing, inviting, satisfying, delicious"
+    },
+    "学习成长": {
+      "name": "学习成长",
+      "description": "自律上进，方法论",
+      "visualElements": ["学习场景", "励志元素", "进度追踪", "整洁桌面"],
+      "colorPalette": ["清新色", "励志色调", "有序配色"],
+      "shootingStyle": "桌面灯光，聚焦照明，flat lay 俯拍",
+      "mood": "motivating, productive, focused, organized"
+    },
+    "职场进阶": {
+      "name": "职场进阶",
+      "description": "专业实用，职场智慧",
+      "visualElements": ["职场场景", "商务环境", "成功意象", "办公元素"],
+      "colorPalette": ["商务色", "海军蓝", "灰色", "白色"],
+      "shootingStyle": "办公室照明，专业干净，正式构图",
+      "mood": "professional, confident, successful, authoritative"
+    }
+  },
+  "defaultStyle": "生活分享",
+  "compositionGuides": {
+    "hero": {
+      "name": "主图",
+      "description": "核心主题特写",
+      "guidance": "居中构图，突出主体，视觉焦点集中，适合做封面"
+    },
+    "lifestyle": {
+      "name": "场景图",
+      "description": "生活化场景展示",
+      "guidance": "自然环境中的真实场景，展现使用/体验过程，有故事感"
+    },
+    "detail": {
+      "name": "细节图",
+      "description": "创意构图和细节",
+      "guidance": "特写镜头，展现质感纹理，局部放大，艺术角度"
+    },
+    "atmosphere": {
+      "name": "氛围图",
+      "description": "整体氛围和情绪",
+      "guidance": "广角视野，环境氛围，情绪渲染，空间感"
+    },
+    "story": {
+      "name": "故事图",
+      "description": "叙事性场景",
+      "guidance": "有前后景层次，叙事瞬间，情感连接，电影感"
+    },
+    "decorative": {
+      "name": "装饰图",
+      "description": "装饰性元素",
+      "guidance": "美学排列，视觉吸引力，图案感，适合做配图"
+    }
+  },
+  "globalSettings": {
+    "quality": "high quality, detailed, aesthetic, suitable for social media",
+    "platform": "Xiaohongshu lifestyle photography style, Chinese social media aesthetic",
+    "aspectRatio": "3:4 vertical (1080x1440) or 1:1 square, optimized for mobile viewing"
+  },
+  "promptTemplate": "Create an image with: {elements}, using {colors} color palette, {shootingStyle}. Mood: {mood}. {composition}. High quality photography suitable for Xiaohongshu social media."
+}

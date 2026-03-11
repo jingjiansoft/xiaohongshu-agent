@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "description": "模型配置 - 请复制此文件为 model-config.json 并填写你的 API Key",
+  "textProvider": "deepseek",
+  "textModel": "deepseek-chat",
+  "textApiKey": "your_text_api_key_here",
+  "textBaseUrl": "https://api.deepseek.com",
+  "imageProvider": "qwen",
+  "imageModel": "wanx-v1",
+  "imageApiKey": "your_image_api_key_here",
+  "imageBaseUrl": "https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis",
+  "videoProvider": "minimax",
+  "videoModel": "video-01",
+  "videoApiKey": "your_video_api_key_here",
+  "videoBaseUrl": "https://api.minimax.chat/v1/video_generation"
+}

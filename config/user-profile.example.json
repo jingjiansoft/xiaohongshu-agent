@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "description": "用户背景和需求配置 - 请复制此文件为 user-profile.json 并填写你的信息",
+  "user": {
+    "name": "你的昵称",
+    "brand": "你的定位（如：生活博主、科技博主等）",
+    "description": "简单介绍一下自己",
+    "targetAudience": "目标受众（如：25-35 岁都市白领）",
+    "tone": "文字风格（如：亲切自然，像朋友聊天）",
+    "preferences": {
+      "styles": [
+        "生活分享",
+        "种草推荐",
+        "清新自然"
+      ],
+      "avoidStyles": [],
+      "emojiUsage": "适量，每篇 3-5 个",
+      "contentLength": "300-500 字",
+      "imageCount": 3
+    }
+  },
+  "content": {
+    "commonTopics": [
+      "日常生活",
+      "好物推荐"
+    ],
+    "keywords": [
+      "真实",
+      "实用"
+    ],
+    "bannedWords": [
+      "最",
+      "第一",
+      "绝对",
+      "100%"
+    ],
+    "recommendedPhrases": [
+      "亲测好用",
+      "真心推荐"
+    ]
+  },
+  "publishing": {
+    "preferredTime": [
+      "09:00",
+      "12:00",
+      "18:00"
+    ],
+    "frequency": "每天 1 篇",
+    "autoPublish": false,
+    "requireReview": true
+  }
+}

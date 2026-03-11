@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #141414;
+  --card-foreground: #ededed;
+  --popover: #141414;
+  --popover-foreground: #ededed;
+  --primary: #ec4899;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #ededed;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #ededed;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fca5a5;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #ec4899;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* 修复 Select 组件样式 */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
+
+select {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+}
+
+/* 修复下拉框选项 */
+[role="option"] {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+}
+
+[role="option"]:hover {
+  background-color: var(--muted) !important;
+}
+
+[role="option"][data-highlighted] {
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+}
+
+/* 卡片悬停效果 */
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+
+/* 渐变文字 */
+.gradient-text {
+  background: linear-gradient(to right, #ec4899, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
