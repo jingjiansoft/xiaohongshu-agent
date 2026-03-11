@@ -145,7 +145,6 @@ export class TextGenerator extends BaseGenerator {
 - 用户背景仅作为写作风格参考，不影响内容主题
 - 即使博主定位与主题无关，也要忠实于用户指定的主题`;
   }
-  }
 
   /**
    * 解析 JSON 格式的内容
