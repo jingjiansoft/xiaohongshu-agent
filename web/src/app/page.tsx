@@ -2,8 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { MessageCircle, FileText, Sparkles, ArrowRight } from 'lucide-react';
+import { MessageCircle, FileText, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
@@ -15,9 +14,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-orange-500/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 mb-6 shadow-lg shadow-pink-500/20">
-              <Sparkles className="w-8 h-8 text-white" />
-            </div>
+            <img src="/logo.svg" alt="Logo" className="w-20 h-20 mx-auto mb-6" />
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 via-orange-400 to-pink-400 bg-clip-text text-transparent mb-4">
               小红书自动发布 Agent
             </h1>
