@@ -166,5 +166,4 @@ Use type assertion `(result as any).noteUrl` if TypeScript complains about ambig
 ## Architecture Documents
 
 - `ARCHITECTURE_V3.md` - 完整的系统架构文档（最新）
-- `ARCHITECTURE.md` - 旧版架构文档
 - `README.md` - 项目说明和使用指南

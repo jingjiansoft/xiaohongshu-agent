@@ -344,7 +344,7 @@ MIT
 
 ---
 
-**创建者**: Vick
+**创建者**: Amlun
 **组织**: jingjiansoft
 **GitHub**: https://github.com/jingjiansoft/xiaohongshu-agent
 **文档最后更新**: 2026-03-11
