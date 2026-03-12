@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useSyncExternalStore, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import {
   Loader2, Send, Image as ImageIcon, Sparkles,
   CheckCircle, XCircle, FileText, AlertCircle,
@@ -51,7 +51,7 @@ const STYLES = [
 export default function HomePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#141414] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#141414] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-pink-400" />
       </div>
     }>
@@ -115,12 +115,6 @@ function HomePageContent() {
     const newIndex = (previewIndex + direction + generatedContent.images.length) % generatedContent.images.length;
     setPreviewIndex(newIndex);
     setPreviewImage(generatedContent.images[newIndex]);
-  };
-
-  // 获取客户端时间（避免 hydration 错误）
-  const getTimeString = () => {
-    if (typeof window === 'undefined') return '';
-    return new Date().toLocaleTimeString('zh-CN');
   };
 
   // 加载
@@ -360,9 +354,9 @@ function HomePageContent() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#141414]">
+    <div className="h-full flex flex-col bg-linear-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#141414]">
       {/* Header */}
-      <div className="border-b border-white/10 bg-white/5 backdrop-blur-sm flex-shrink-0">
+      <div className="border-b border-white/10 bg-white/5 backdrop-blur-sm shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -497,7 +491,7 @@ function HomePageContent() {
                 <Button
                   onClick={handleGenerate}
                   disabled={isGenerating || isPublishing || !topic.trim()}
-                  className="w-full h-10 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium shadow-lg shadow-pink-500/20 disabled:opacity-50"
+                  className="w-full h-10 bg-linear-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium shadow-lg shadow-pink-500/20 disabled:opacity-50"
                 >
                   {isGenerating ? (
                     <>
@@ -520,7 +514,7 @@ function HomePageContent() {
           <div className="lg:col-span-2 flex flex-col min-h-0">
             <div className="flex-1 flex flex-col border border-white/10 bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden">
               {/* 标题栏 */}
-              <div className="flex-shrink-0 px-4 py-3 border-b border-white/10 bg-white/5">
+              <div className="shrink-0 px-4 py-3 border-b border-white/10 bg-white/5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-5 h-5 text-orange-400" />
@@ -540,7 +534,7 @@ function HomePageContent() {
                       <Button
                         onClick={handlePublish}
                         disabled={isPublishing}
-                        className="h-9 px-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg shadow-green-500/20"
+                        className="h-9 px-4 bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg shadow-green-500/20"
                       >
                         {isPublishing ? (
                           <>
