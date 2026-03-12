@@ -3,9 +3,10 @@
  * 加载和管理用户背景信息、偏好设置
  */
 
-import { readFileSync, existsSync, writeFileSync } from 'fs';
+import { readFileSync, existsSync, writeFileSync, watch } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../utils/logger.js';
+import { configCache } from '../utils/cache.js';
 
 /**
  * 用户配置接口
@@ -51,23 +52,54 @@ export interface UserProfile {
 export class UserProfileManager {
   private profile: UserProfile | null = null;
   private configPath: string;
+  private readonly CACHE_TTL = 10 * 60 * 1000; // 10 分钟缓存
 
   constructor(configPath?: string) {
     this.configPath = configPath || resolve(process.cwd(), 'config/user-profile.json');
+    this.setupFileWatcher();
   }
 
   /**
-   * 加载用户配置
+   * 设置文件监听器，文件变化时清空缓存
+   */
+  private setupFileWatcher(): void {
+    try {
+      watch(this.configPath, (eventType) => {
+        if (eventType === 'change') {
+          logger.debug('用户配置文件变化，清空缓存');
+          this.profile = null;
+          configCache.delete('user_profile');
+        }
+      });
+    } catch (error) {
+      // 文件可能不存在，忽略
+    }
+  }
+
+  /**
+   * 加载用户配置（带缓存）
    */
   load(): UserProfile {
+    // 检查内存缓存
+    const cached = configCache.get<UserProfile>('user_profile');
+    if (cached) {
+      this.profile = cached;
+      return cached;
+    }
+
     try {
       if (!existsSync(this.configPath)) {
         logger.warn('用户配置文件不存在，使用默认配置', { path: this.configPath });
-        return this.getDefaultProfile();
+        const defaultProfile = this.getDefaultProfile();
+        configCache.set('user_profile', defaultProfile);
+        return defaultProfile;
       }
 
       const content = readFileSync(this.configPath, 'utf-8');
       this.profile = JSON.parse(content);
+
+      // 存入缓存
+      configCache.set('user_profile', this.profile);
 
       logger.info('用户配置加载成功', {
         user: this.profile?.user.name,

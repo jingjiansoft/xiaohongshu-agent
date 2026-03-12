@@ -1,11 +1,13 @@
 /**
  * 提示词配置加载器
  * 从 prompts.json 加载和管理提示词模板
+ * 使用缓存优化，避免频繁文件读取
  */
 
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, watch } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../utils/logger.js';
+import { promptsCache } from '../utils/cache.js';
 
 /**
  * 风格配置接口
@@ -60,23 +62,62 @@ export interface PromptsConfig {
 export class PromptsManager {
   private config: PromptsConfig | null = null;
   private configPath: string;
+  private lastLoadTime: number = 0;
+  private readonly CACHE_TTL = 30 * 1000; // 30 秒内使用缓存
 
   constructor(configPath?: string) {
     this.configPath = configPath || resolve(process.cwd(), 'prompts/prompts.json');
+    this.setupFileWatcher();
   }
 
   /**
-   * 加载配置
+   * 设置文件监听器，文件变化时自动清空缓存
+   */
+  private setupFileWatcher(): void {
+    try {
+      watch(this.configPath, (eventType) => {
+        if (eventType === 'change') {
+          logger.debug('提示词配置文件变化，清空缓存');
+          this.config = null;
+          promptsCache.delete('styles');
+        }
+      });
+    } catch (error) {
+      // 文件可能不存在，忽略
+    }
+  }
+
+  /**
+   * 加载配置（带缓存）
    */
   load(): PromptsConfig {
+    // 检查缓存是否有效
+    const now = Date.now();
+    if (this.config && (now - this.lastLoadTime) < this.CACHE_TTL) {
+      return this.config;
+    }
+
+    // 检查内存缓存
+    const cached = promptsCache.get<PromptsConfig>('prompts_config');
+    if (cached) {
+      this.config = cached;
+      return cached;
+    }
+
     try {
       if (!existsSync(this.configPath)) {
         logger.warn('提示词配置文件不存在，使用内置默认配置', { path: this.configPath });
-        return this.getDefaultConfig();
+        const defaultConfig = this.getDefaultConfig();
+        promptsCache.set('prompts_config', defaultConfig);
+        return defaultConfig;
       }
 
       const content = readFileSync(this.configPath, 'utf-8');
       this.config = JSON.parse(content);
+      this.lastLoadTime = now;
+
+      // 存入缓存
+      promptsCache.set('prompts_config', this.config);
 
       logger.info('提示词配置加载成功', {
         version: this.config?.version,
@@ -92,23 +133,33 @@ export class PromptsManager {
   }
 
   /**
-   * 获取风格配置
+   * 获取风格配置（带缓存）
    */
   getStyle(styleName: string): StyleConfig {
     if (!this.config) {
       this.load();
     }
 
-    const style = this.config!.styles[styleName];
-    
-    if (!style) {
-      logger.warn(`风格"${styleName}"不存在，使用默认风格`, { 
-        requested: styleName,
-        default: this.config!.defaultStyle 
-      });
-      return this.config!.styles[this.config!.defaultStyle];
+    // 先检查风格缓存
+    const cachedStyle = promptsCache.get<StyleConfig>(`style:${styleName}`);
+    if (cachedStyle) {
+      return cachedStyle;
     }
 
+    const style = this.config!.styles[styleName];
+
+    if (!style) {
+      logger.warn(`风格"${styleName}"不存在，使用默认风格`, {
+        requested: styleName,
+        default: this.config!.defaultStyle
+      });
+      const defaultStyle = this.config!.styles[this.config!.defaultStyle];
+      promptsCache.set(`style:${styleName}`, defaultStyle);
+      return defaultStyle;
+    }
+
+    // 缓存风格配置
+    promptsCache.set(`style:${styleName}`, style);
     return style;
   }
 

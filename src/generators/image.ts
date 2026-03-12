@@ -42,7 +42,7 @@ export class ImageGenerator extends BaseGenerator {
   }
 
   /**
-   * 生成多张图片（每次一张，确保每张有不同的构图和视角）
+   * 生成多张图片（并行生成，提高性能）
    */
   private async generateImages(request: ContentRequest, count: number): Promise<GeneratedContent> {
     this.validateRequest(request);
@@ -70,21 +70,33 @@ export class ImageGenerator extends BaseGenerator {
     const imageUrls: string[] = [];
 
     try {
-      // 逐张生成，确保每张使用不同的提示词和构图
-      for (let i = 0; i < count; i++) {
+      // 并行生成所有图片（使用 Promise.all）
+      this.log(`开始并行生成 ${count} 张图片...`);
+
+      const promises = Array.from({ length: count }, async (_, i) => {
         const prompt = prompts[i];
         this.log(`生成第 ${i + 1} 张图片`, { prompt, index: i + 1 });
 
         const result = await this.adapter.generateImage(prompt, {
           size: this.defaultSize,
           style: request.style || this.defaultStyle,
-          n: 1,  // 每次只生成一张，避免相似的图
+          n: 1,
         });
 
         if (result.success && result.content) {
           const url = typeof result.content === 'string' ? result.content.trim() : result.content;
-          imageUrls.push(url);
           this.log(`第 ${i + 1} 张图片生成成功`, { index: i + 1 });
+          return url;
+        }
+        return null;
+      });
+
+      const results = await Promise.all(promises);
+
+      // 收集成功生成的图片 URL
+      for (const url of results) {
+        if (url) {
+          imageUrls.push(url);
         }
       }
     } catch (error) {

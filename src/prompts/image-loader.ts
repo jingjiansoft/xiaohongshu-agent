@@ -3,9 +3,10 @@
  * 从 image-prompts.json 加载和管理图片生成提示词模板
  */
 
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, watch } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../utils/logger.js';
+import { promptsCache } from '../utils/cache.js';
 
 /**
  * 图片风格配置接口
@@ -51,23 +52,62 @@ export interface ImagePromptsConfig {
 export class ImagePromptsManager {
   private config: ImagePromptsConfig | null = null;
   private configPath: string;
+  private lastLoadTime: number = 0;
+  private readonly CACHE_TTL = 30 * 1000; // 30 秒内使用缓存
 
   constructor(configPath?: string) {
     this.configPath = configPath || resolve(process.cwd(), 'prompts/image-prompts.json');
+    this.setupFileWatcher();
   }
 
   /**
-   * 加载配置
+   * 设置文件监听器，文件变化时自动清空缓存
+   */
+  private setupFileWatcher(): void {
+    try {
+      watch(this.configPath, (eventType) => {
+        if (eventType === 'change') {
+          logger.debug('图片提示词配置文件变化，清空缓存');
+          this.config = null;
+          promptsCache.delete('image_prompts_config');
+        }
+      });
+    } catch (error) {
+      // 文件可能不存在，忽略
+    }
+  }
+
+  /**
+   * 加载配置（带缓存）
    */
   load(): ImagePromptsConfig {
+    // 检查缓存是否有效
+    const now = Date.now();
+    if (this.config && (now - this.lastLoadTime) < this.CACHE_TTL) {
+      return this.config;
+    }
+
+    // 检查内存缓存
+    const cached = promptsCache.get<ImagePromptsConfig>('image_prompts_config');
+    if (cached) {
+      this.config = cached;
+      return cached;
+    }
+
     try {
       if (!existsSync(this.configPath)) {
         logger.warn('图片提示词配置文件不存在，使用内置默认配置', { path: this.configPath });
-        return this.getDefaultConfig();
+        const defaultConfig = this.getDefaultConfig();
+        promptsCache.set('image_prompts_config', defaultConfig);
+        return defaultConfig;
       }
 
       const content = readFileSync(this.configPath, 'utf-8');
       this.config = JSON.parse(content);
+      this.lastLoadTime = now;
+
+      // 存入缓存
+      promptsCache.set('image_prompts_config', this.config);
 
       logger.info('图片提示词配置加载成功', {
         version: this.config?.version,
