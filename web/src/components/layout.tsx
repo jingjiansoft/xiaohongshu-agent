@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Sparkles,
   Settings,
   Home,
   LogIn,
@@ -41,9 +40,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-linear-to-br from-pink-500 to-orange-500 flex items-center justify-center shadow-lg shadow-pink-500/20 group-hover:shadow-pink-500/30 transition-shadow">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
+              <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
               <span className="font-semibold text-lg bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 小红书自动发布 Agent
               </span>

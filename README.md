@@ -1,6 +1,12 @@
 # 小红书自动发布 Agent
 
+<div align="center">
+
+![Logo](assets/logo.svg)
+
 🤖 多模型接入 · AI 生成内容 · 自动发布 · 可视化操作界面
+
+</div>
 
 ## ✨ 功能特性
 
