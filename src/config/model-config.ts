@@ -1,11 +1,11 @@
 /**
  * 模型配置管理
- * 管理 AI 模型的 API Key 和提供商配置
+ * 使用 SQLite 统一管理 AI 模型的 API Key 和提供商配置
  */
 
-import { readFile, writeFile, mkdir } from 'fs/promises';
-import { resolve, dirname } from 'path';
+import { UnifiedStorage, getSetting, saveSetting } from '../data/unified-storage.js';
 import { logger } from '../utils/logger.js';
+import { configCache } from '../utils/cache.js';
 
 /**
  * 模型配置
@@ -28,35 +28,53 @@ export interface ModelConfig {
 }
 
 /**
- * 模型配置管理器
+ * 默认模型配置
+ */
+const DEFAULT_CONFIG: ModelConfig = {
+  textProvider: 'qwen',
+  textApiKey: '',
+  imageProvider: 'qwen',
+  imageApiKey: '',
+  videoProvider: 'minimax',
+  videoApiKey: '',
+};
+
+/**
+ * 模型配置管理器（SQLite 版本）
  */
 export class ModelConfigManager {
-  private configPath: string;
-  private cache: ModelConfig | null = null;
+  private storage: UnifiedStorage;
+  private readonly CACHE_KEY = 'model_config';
 
   constructor() {
-    this.configPath = resolve(process.cwd(), 'config/model-config.json');
+    this.storage = UnifiedStorage.getInstance();
   }
 
   /**
-   * 加载配置
+   * 加载配置（带缓存）
    */
   async load(): Promise<ModelConfig | null> {
-    try {
-      // 如果已有缓存，直接返回
-      if (this.cache) {
-        return this.cache;
-      }
-
-      const data = await readFile(this.configPath, 'utf-8');
-      this.cache = JSON.parse(data);
-      logger.info('模型配置加载成功');
-      return this.cache;
-    } catch (error) {
-      // 文件不存在或解析失败
-      logger.debug('模型配置文件不存在，将使用默认配置');
-      return null;
+    // 检查内存缓存
+    const cached = configCache.get<ModelConfig>(this.CACHE_KEY);
+    if (cached) {
+      return cached;
     }
+
+    // 从 SQLite 读取
+    const config = getSetting<ModelConfig>(this.CACHE_KEY);
+
+    if (config) {
+      logger.info('模型配置加载成功（SQLite）', {
+        textProvider: config.textProvider,
+        imageProvider: config.imageProvider,
+      });
+      // 存入缓存
+      configCache.set(this.CACHE_KEY, config);
+      return config;
+    }
+
+    logger.debug('模型配置不存在，将使用默认配置');
+    return null;
   }
 
   /**
@@ -64,21 +82,18 @@ export class ModelConfigManager {
    */
   async save(config: ModelConfig): Promise<void> {
     try {
-      // 确保目录存在
-      await mkdir(dirname(this.configPath), { recursive: true });
-
       // 添加更新时间
       config.updatedAt = new Date().toISOString();
 
-      // 写入文件
-      await writeFile(this.configPath, JSON.stringify(config, null, 2), 'utf-8');
-      
+      // 保存到 SQLite
+      saveSetting(this.CACHE_KEY, config, 'model_config');
+
       // 更新缓存
-      this.cache = config;
-      
-      logger.info('模型配置保存成功', { 
+      configCache.set(this.CACHE_KEY, config);
+
+      logger.info('模型配置保存成功（SQLite）', {
         textProvider: config.textProvider,
-        imageProvider: config.imageProvider 
+        imageProvider: config.imageProvider,
       });
     } catch (error) {
       logger.error('保存模型配置失败', { error: (error as Error).message });
@@ -91,20 +106,13 @@ export class ModelConfigManager {
    */
   async getOrDefault(): Promise<ModelConfig> {
     const config = await this.load();
-    
+
     if (config) {
       return config;
     }
 
     // 返回默认配置
-    return {
-      textProvider: 'qwen',
-      textApiKey: '',
-      imageProvider: 'qwen',
-      imageApiKey: '',
-      videoProvider: 'minimax',
-      videoApiKey: '',
-    };
+    return DEFAULT_CONFIG;
   }
 
   /**
@@ -140,7 +148,7 @@ export class ModelConfigManager {
    * 清除缓存
    */
   clearCache(): void {
-    this.cache = null;
+    configCache.delete(this.CACHE_KEY);
   }
 }
 

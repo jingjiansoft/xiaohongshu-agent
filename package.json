@@ -16,6 +16,7 @@
     "health": "./node_modules/.bin/tsx src/health-check.ts",
     "publish:content": "./node_modules/.bin/tsx src/cli.ts publish",
     "test:publish": "./node_modules/.bin/tsx src/cli.ts publish -t \"测试一下\" -s \"生活分享\" --no-publish",
+    "migrate": "./node_modules/.bin/tsx src/migrate-to-sqlite.ts",
     "test:login": "./node_modules/.bin/tsx src/test-login.ts",
     "install:browser": "npx playwright install chromium"
   },

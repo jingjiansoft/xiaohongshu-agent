@@ -1,11 +1,9 @@
 /**
  * Cookie 管理模块
- * 负责 Cookie 的加载、保存和验证
+ * 使用 SQLite 统一存储 Cookie
  */
 
-import { readFile, writeFile } from 'fs/promises';
-import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { saveCookies, getCookies } from '../data/unified-storage.js';
 import { logger } from '../utils/logger.js';
 
 export interface CookieData {
@@ -15,30 +13,28 @@ export interface CookieData {
 }
 
 /**
- * Cookie 管理器
+ * Cookie 管理器（SQLite 版本）
  */
 export class CookieManager {
-  private cookiePath: string;
   private cookies: CookieData | null = null;
-
-  constructor(cookiePath: string = 'config/cookies.json') {
-    this.cookiePath = resolve(process.cwd(), cookiePath);
-  }
+  private readonly CACHE_KEY = 'cookies';
 
   /**
    * 加载 Cookie
    */
   async load(): Promise<CookieData | null> {
     try {
-      if (!existsSync(this.cookiePath)) {
-        logger.warn('Cookie 文件不存在', { path: this.cookiePath });
-        return null;
+      // 从 SQLite 读取
+      const cookies = getCookies<CookieData>();
+
+      if (cookies) {
+        this.cookies = cookies;
+        logger.info('Cookie 加载成功（SQLite）', { keys: Object.keys(cookies) });
+        return cookies;
       }
 
-      const content = await readFile(this.cookiePath, 'utf-8');
-      this.cookies = JSON.parse(content);
-      logger.info('Cookie 加载成功', { keys: Object.keys(this.cookies || {}) });
-      return this.cookies;
+      logger.warn('Cookie 数据不存在');
+      return null;
     } catch (error) {
       logger.error('Cookie 加载失败', { error: (error as Error).message });
       return null;
@@ -56,9 +52,11 @@ export class CookieManager {
         createdAt: this.cookies?.createdAt || new Date().toISOString(),
       };
 
-      await writeFile(this.cookiePath, JSON.stringify(data, null, 2), 'utf-8');
+      // 保存到 SQLite
+      saveCookies(data);
       this.cookies = data;
-      logger.info('Cookie 保存成功', { path: this.cookiePath });
+
+      logger.info('Cookie 保存成功（SQLite）');
       return true;
     } catch (error) {
       logger.error('Cookie 保存失败', { error: (error as Error).message });
@@ -96,20 +94,20 @@ export class CookieManager {
   async validate(page: import('playwright').Page): Promise<boolean> {
     try {
       logger.info('开始验证 Cookie...');
-      
+
       // 使用 'domcontentloaded' 而不是 'networkidle'，避免超时
-      await page.goto('https://creator.xiaohongshu.com/new/home', { 
+      await page.goto('https://creator.xiaohongshu.com/new/home', {
         waitUntil: 'domcontentloaded',
-        timeout: 15000 
+        timeout: 15000
       });
-      
+
       // 等待 2 秒让页面稳定
       await page.waitForTimeout(2000);
-      
+
       const url = page.url();
-      
+
       logger.info('当前 URL:', { url });
-      
+
       // 如果跳转到登录页，说明 Cookie 无效
       if (url.includes('/login')) {
         logger.warn('Cookie 已过期，需要重新登录');

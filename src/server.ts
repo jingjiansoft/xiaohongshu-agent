@@ -11,6 +11,7 @@ import modelConfigRouter from './routes/model-config.js';
 import loginRouter from './routes/login.js';
 import conversationRouter from './routes/conversation.js';
 import { logger } from './utils/logger.js';
+import userProfilRouter from './routes/user-profile.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,6 +28,9 @@ app.use(express.json({ limit: '50mb' }));
 
 // 模型配置路由
 app.use('/api/model-config', modelConfigRouter);
+
+// 用户配置路由
+app.use('/api/user-profile', userProfilRouter);
 
 // 登录状态路由
 app.use('/api/login', loginRouter);

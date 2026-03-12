@@ -19,6 +19,7 @@ npm run build                 # TypeScript compile
 npm run web:build             # Build Next.js web app
 
 # Test & Debug
+npm run migrate               # Migrate config files to SQLite
 npm run test:login            # Login to Xiaohongshu and save cookies
 npm run test:publish          # Test content generation (no publish)
 npm run health                # Health check
@@ -85,26 +86,43 @@ User Input → Orchestrator → TextGenerator (生成文本+图片提示词)
 | File | Purpose |
 |------|---------|
 | `.env` | Server config (PORT, LOG_LEVEL, AUTO_PUBLISH) |
-| `config/model-config.json` | Model providers and API Keys |
-| `config/user-profile.json` | User preferences, content settings, banned words |
-| `config/cookies.json` | Xiaohongshu login cookies (auto-saved) |
+| `data/agent.db` | SQLite database (unified storage for all config) |
 | `prompts/prompts.json` | Text style templates and prompt engineering (包含图片提示词生成指南) |
 | `prompts/image-prompts.json` | Image style templates and prompt engineering (降级方案) |
 | `src/config.ts` | Browser timeouts, paths, publish limits |
+| `src/data/unified-storage.ts` | SQLite unified storage helper |
+| `src/utils/cache.ts` | Memory cache with TTL management |
 
 ## Configuration
 
-### Model Config (`config/model-config.json`)
-```json
-{
-  "textProvider": "qwen",      // openai|deepseek|qwen|glm|minimax|anthropic
-  "textApiKey": "xxx",
-  "imageProvider": "qwen",     // openai|qwen|glm|minimax
-  "imageApiKey": "xxx",
-  "videoProvider": "minimax",
-  "videoApiKey": "xxx"
-}
+### Model Config (SQLite Storage)
+
+Model configuration is now stored in SQLite (`data/agent.db`) for better performance and consistency.
+
+**Via Web UI:** Access http://localhost:3000/settings to configure model providers and API Keys.
+
+**Via API:**
+```bash
+# Get model config
+curl http://localhost:3001/api/model-config
+
+# Update model config
+curl -X PUT http://localhost:3001/api/model-config \
+  -H "Content-Type: application/json" \
+  -d '{
+    "textProvider": "qwen",
+    "textApiKey": "xxx",
+    "imageProvider": "qwen",
+    "imageApiKey": "xxx",
+    "videoProvider": "minimax",
+    "videoApiKey": "xxx"
+  }'
 ```
+
+**Supported model providers:**
+- Text: `openai`, `deepseek`, `qwen`, `glm`, `minimax`, `anthropic`
+- Image: `openai`, `qwen`, `glm`, `minimax`
+- Video: `minimax`
 
 ### Environment Variables (`.env`)
 ```bash
@@ -113,9 +131,18 @@ LOG_LEVEL=info
 AUTO_PUBLISH=false
 ```
 
+### Legacy Config Files (Deprecated)
+
+If you have existing `config/*.json` files from before the SQLite migration, run:
+```bash
+npm run migrate
+```
+
+This will migrate your data to SQLite. See [docs/SQLITE_MIGRATION.md](docs/SQLITE_MIGRATION.md) for details.
+
 ## Development Notes
 
-- **Cookie Flow**: Run `npm run test:login` once to authenticate and save cookies to `config/cookies.json`
+- **Cookie Flow**: Run `npm run test:login` once to authenticate and save cookies to SQLite (`data/agent.db`)
 - **Publish Flow**:
   1. Orchestrator 调用 TextGenerator 生成文本内容和图片提示词
   2. Orchestrator 调用 ImageGenerator，优先使用 TextGenerator 返回的图片提示词
@@ -125,8 +152,9 @@ AUTO_PUBLISH=false
   - 文本生成阶段，AI 同时生成图片提示词（包含主体、视角、构图、光线、氛围、风格）
   - 图片生成阶段，优先使用文本生成器返回的提示词
   - 如果没有或数量不足，使用 `image-loader` 自动生成
-- **User Config**: Web UI at `/settings` or direct edit `config/user-profile.json`
-- **Model Fallback**: Environment variables (TEXT_API_KEY, etc.) override `config/model-config.json` for backward compatibility
+- **User Config**: Web UI at `/settings` or via `/api/user-profile` endpoint
+- **Cache System**: Memory cache with TTL (configCache: 10min, promptsCache: 30s, globalCache: 5min)
+- **SQLite WAL Mode**: Write-Ahead Logging enabled for concurrent writes
 
 ## Type System
 

@@ -88,7 +88,9 @@ cp config/model-config.example.json config/model-config.json
 npm run test:login
 ```
 
-在浏览器中完成登录，Cookie 会自动保存到 `config/cookies.json`。
+在浏览器中完成登录，Cookie 会自动保存到 SQLite 数据库。
+
+> 💡 **数据迁移**: 如果你之前使用过旧版本，可以运行 `npm run migrate` 将配置文件数据迁移到 SQLite 统一存储。详见 [SQLite 迁移指南](docs/SQLITE_MIGRATION.md)。
 
 ### 5. 配置用户信息（可选）
 
@@ -138,9 +140,12 @@ xiaohongshu-agent/
 │   └── package.json
 ├── scripts/
 │   └── install-browser.js    # 浏览器安装脚本
+├── data/
+│   └── agent.db              # SQLite 数据库（.gitignore，统一存储所有配置）
 ├── config/
-│   ├── cookies.json          # 小红书 Cookie（.gitignore）
-│   └── user-profile.json     # 用户配置（.gitignore）
+│   ├── cookies.example.json  # Cookie 配置模板
+│   ├── model-config.example.json  # 模型配置模板
+│   └── user-profile.example.json  # 用户配置模板
 ├── prompts/
 │   └── prompts.json          # 提示词模板配置
 ├── .env.example              # 环境变量示例
