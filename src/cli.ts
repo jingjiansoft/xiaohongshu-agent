@@ -11,7 +11,7 @@ const program = new Command();
 
 program
   .name('xiaohongshu-agent')
-  .description('小红书自动发布 CLI 工具')
+  .description('小红书自动发文 CLI 工具')
   .version('1.0.0');
 
 // 发布内容命令

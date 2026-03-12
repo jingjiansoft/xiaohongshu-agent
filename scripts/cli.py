@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-小红书自动发布 Agent - Python CLI 工具
+小红书自动发文 Agent - Python CLI 工具
 便于集成到各种 AI Agent 框架（如 OpenClaw, Claude Code 等）
 """
 
@@ -146,7 +146,7 @@ def publish_content(title: str, content: str, topics: list, images: list):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="小红书自动发布 Agent CLI")
+    parser = argparse.ArgumentParser(description="小红书自动发文 Agent CLI")
     subparsers = parser.add_subparsers(dest="command", help="命令")
     
     # check-login 命令

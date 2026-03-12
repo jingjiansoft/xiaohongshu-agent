@@ -1,5 +1,5 @@
 /**
- * 小红书自动发布 Agent - 核心主类
+ * 小红书自动发文 Agent - 核心主类
  * 
  * 提供给 Web API 和 CLI 共同使用
  */
@@ -37,7 +37,7 @@ export interface GenerateContentRequest {
 }
 
 /**
- * 小红书自动发布 Agent
+ * 小红书自动发文 Agent
  */
 export class XiaohongshuAgent {
   private orchestrator: Orchestrator | null = null;

@@ -42,7 +42,7 @@ export default function Layout({ children }: LayoutProps) {
             <Link href="/" className="flex items-center gap-2.5 group">
               <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
               <span className="font-semibold text-lg bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                小红书自动发布 Agent
+                小红书自动发文 Agent
               </span>
             </Link>
 

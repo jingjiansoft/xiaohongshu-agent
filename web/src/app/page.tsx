@@ -16,7 +16,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <img src="/logo.svg" alt="Logo" className="w-20 h-20 mx-auto mb-6" />
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 via-orange-400 to-pink-400 bg-clip-text text-transparent mb-4">
-              小红书自动发布 Agent
+              小红书自动发文 Agent
             </h1>
             <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
               AI 驱动的内容创作助手，选择你喜欢的创作方式

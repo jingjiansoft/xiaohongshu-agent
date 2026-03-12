@@ -1,7 +1,7 @@
 {
   "name": "xiaohongshu-agent",
   "version": "1.0.0",
-  "description": "小红书自动发布 Agent - AI 生成内容 + 自动发布",
+  "description": "小红书自动发文 Agent - AI 生成内容 + 自动发布",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

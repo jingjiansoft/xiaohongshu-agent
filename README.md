@@ -1,4 +1,4 @@
-# 小红书自动发布 Agent
+# 小红书自动发文 Agent
 
 <div align="center">
 
