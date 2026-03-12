@@ -28,7 +28,27 @@ npm install
 cd ..
 ```
 
-### 2. 配置模型 API Key
+### 2. 启动应用
+
+**方式 1：一键启动（推荐）**
+```bash
+./start.sh
+```
+这会同时启动后端服务（:3001）和 Web 应用（:3000）
+
+**方式 2：分别启动**
+```bash
+# 终端 1：启动后端服务
+npm run server
+
+# 终端 2：启动 Web 应用
+cd web
+npm run dev
+```
+
+访问 http://localhost:3000
+
+### 3. 配置模型 API Key
 
 **方式 1：通过 Web 界面配置（推荐）**
 
@@ -62,7 +82,7 @@ cp config/model-config.example.json config/model-config.json
 
 > 💡 提示：配置文件 `config/model-config.json` 不会被提交到 Git，请妥善保管
 
-### 3. 登录小红书（首次使用）
+### 4. 登录小红书（首次使用）
 
 ```bash
 npm run test:login
@@ -70,32 +90,12 @@ npm run test:login
 
 在浏览器中完成登录，Cookie 会自动保存到 `config/cookies.json`。
 
-### 4. 配置用户信息（可选）
+### 5. 配置用户信息（可选）
 
 访问 http://localhost:3000/settings 配置：
 - 个人背景（博主名称、定位、目标受众）
 - 内容偏好（常用话题、关键词、禁用词）
 - 发布设置（发布时间、频率、自动发布）
-
-### 5. 启动应用
-
-**方式 1：一键启动（推荐）**
-```bash
-./start.sh
-```
-这会同时启动后端服务（:3001）和 Web 应用（:3000）
-
-**方式 2：分别启动**
-```bash
-# 终端 1：启动后端服务
-npm run server
-
-# 终端 2：启动 Web 应用
-cd web
-npm run dev
-```
-
-访问 http://localhost:3000
 
 ## 📁 项目结构
 
