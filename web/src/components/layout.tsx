@@ -54,8 +54,8 @@ export default function Layout({ children }: LayoutProps) {
                   href={item.href}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                     isActive(item.href)
-                      ? 'bg-white/10 text-white'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-[#FF2442]/10 text-[#FF5A75]'
+                      : 'text-gray-400 hover:text-[#FF5A75] hover:bg-[#FF2442]/5'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -84,8 +84,8 @@ export default function Layout({ children }: LayoutProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-3 ${
                   isActive(item.href)
-                    ? 'bg-white/10 text-white'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FF2442]/10 text-[#FF5A75]'
+                    : 'text-gray-400 hover:text-[#FF5A75] hover:bg-[#FF2442]/5'
                 }`}
               >
                 <item.icon className="w-4 h-4" />

@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Logo](assets/logo.svg =200x200)
+<img src="assets/logo.svg" width="200"/>
 
 🤖 多模型接入 · AI 生成内容 · 自动发布 · 可视化操作界面
 

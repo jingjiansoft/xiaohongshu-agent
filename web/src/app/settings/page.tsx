@@ -94,11 +94,11 @@ export default function SettingsPage() {
         {/* 页面头部 */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF5A75] to-[#FF2442] flex items-center justify-center shadow-lg shadow-[#FF2442]/20">
               <Key className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-[#FF5A75] to-[#FF2442] bg-clip-text text-transparent mb-2">
             模型配置
           </h1>
           <p className="text-gray-400">配置 AI 模型的 API Key</p>
@@ -108,7 +108,7 @@ export default function SettingsPage() {
         <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <Key className="w-5 h-5 text-pink-400" />
+              <Key className="w-5 h-5 text-[#FF5A75]" />
               API Key 配置
             </CardTitle>
             <CardDescription className="text-gray-400 text-sm">
