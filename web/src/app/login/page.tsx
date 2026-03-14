@@ -101,11 +101,11 @@ export default function LoginPage() {
         {/* 页面头部 */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF5A75] to-[#FF2442] flex items-center justify-center shadow-lg shadow-[#FF2442]/20">
               <Cookie className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-[#FF5A75] to-[#FF2442] bg-clip-text text-transparent mb-2">
             小红书登录管理
           </h1>
           <p className="text-gray-400">检查登录状态和 Cookie 配置</p>
@@ -115,7 +115,7 @@ export default function LoginPage() {
         <Card className="mb-6 border-white/10 bg-white/5 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <Smartphone className="w-5 h-5 text-pink-400" />
+              <Smartphone className="w-5 h-5 text-[#FF5A75]" />
               选择登录方式
             </CardTitle>
             <CardDescription className="text-gray-400">
@@ -125,10 +125,10 @@ export default function LoginPage() {
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* 网页登录 */}
-              <div className="p-4 rounded-xl bg-gradient-to-br from-pink-500/10 to-orange-500/10 border border-pink-500/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF5A75]/10 to-[#FF2442]/10 border border-[#FF5A75]/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center">
-                    <Smartphone className="w-4 h-4 text-pink-400" />
+                  <div className="w-8 h-8 rounded-lg bg-[#FF5A75]/20 flex items-center justify-center">
+                    <Smartphone className="w-4 h-4 text-[#FF5A75]" />
                   </div>
                   <h3 className="font-semibold text-white">网页登录</h3>
                 </div>
@@ -138,7 +138,7 @@ export default function LoginPage() {
                 <Button
                   onClick={handleWebLogin}
                   disabled={loggingIn || loginStatus?.isLoggedIn}
-                  className="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white h-10"
+                  className="w-full bg-gradient-to-r from-[#FF5A75] to-[#FF2442] hover:from-[#FF5A75]/90 hover:to-[#FF2442]/90 text-white h-10"
                 >
                   {loggingIn ? (
                     <>
@@ -163,10 +163,10 @@ export default function LoginPage() {
               </div>
 
               {/* 命令行登录 */}
-              <div className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF5A75]/10 to-[#FF2442]/10 border border-[#FF5A75]/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                    <Terminal className="w-4 h-4 text-blue-400" />
+                  <div className="w-8 h-8 rounded-lg bg-[#FF5A75]/20 flex items-center justify-center">
+                    <Terminal className="w-4 h-4 text-[#FF5A75]" />
                   </div>
                   <h3 className="font-semibold text-white">命令行登录</h3>
                 </div>
@@ -191,7 +191,7 @@ export default function LoginPage() {
             {checking ? (
               <div className="text-center py-8">
                 <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                  <Loader2 className="w-6 h-6 animate-spin text-pink-500" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#FF5A75]" />
                 </div>
                 <p className="text-gray-400">检查中...</p>
               </div>

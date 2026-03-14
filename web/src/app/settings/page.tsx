@@ -117,9 +117,9 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             {/* 提示信息 */}
-            <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-              <p className="text-xs text-blue-300">
-                💡 配置文件保存在 <code className="bg-blue-500/20 px-1.5 py-0.5 rounded text-white">config/model-config.json</code>
+            <div className="p-3 rounded-lg bg-[#FF2442]/10 border border-[#FF2442]/20">
+              <p className="text-xs text-[#FF5A75]">
+                💡 数据保存在 <code className="bg-[#FF2442]/20 px-1.5 py-0.5 rounded text-white">data/agent.db</code> (SQLite)
               </p>
             </div>
 
@@ -127,7 +127,7 @@ export default function SettingsPage() {
               {/* 文本模型 */}
               <div className="space-y-3 p-3 rounded-lg bg-white/5 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-md bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#FF5A75] to-[#FF2442] flex items-center justify-center">
                     <FileText className="w-3.5 h-3.5 text-white" />
                   </div>
                   <h3 className="text-sm font-semibold text-white">文本模型</h3>
@@ -137,7 +137,7 @@ export default function SettingsPage() {
                   <select
                     value={modelConfig.textProvider}
                     onChange={(e) => setModelConfig({ ...modelConfig, textProvider: e.target.value })}
-                    className="w-full rounded-md border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-white focus:border-pink-500/50 focus:outline-none"
+                    className="w-full rounded-md border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-white focus:border-[#FF5A75]/50 focus:outline-none"
                   >
                     <option value="qwen">通义千问 (Qwen)</option>
                     <option value="deepseek">深度求索 (DeepSeek)</option>
@@ -154,7 +154,7 @@ export default function SettingsPage() {
                     value={modelConfig.textApiKey}
                     onChange={(e) => setModelConfig({ ...modelConfig, textApiKey: e.target.value })}
                     placeholder="sk-..."
-                    className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-blue-500/50 text-sm h-9"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-[#FF5A75]/50 text-sm h-9"
                   />
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function SettingsPage() {
               {/* 图片模型 */}
               <div className="space-y-3 p-3 rounded-lg bg-white/5 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#FF5A75] to-[#FF2442] flex items-center justify-center">
                     <ImageIcon className="w-3.5 h-3.5 text-white" />
                   </div>
                   <h3 className="text-sm font-semibold text-white">图片模型</h3>
@@ -172,7 +172,7 @@ export default function SettingsPage() {
                   <select
                     value={modelConfig.imageProvider}
                     onChange={(e) => setModelConfig({ ...modelConfig, imageProvider: e.target.value })}
-                    className="w-full rounded-md border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-white focus:border-pink-500/50 focus:outline-none"
+                    className="w-full rounded-md border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-white focus:border-[#FF5A75]/50 focus:outline-none"
                   >
                     <option value="qwen">通义万相 (Qwen)</option>
                     <option value="openai">DALL-E 3 (OpenAI)</option>
@@ -189,7 +189,7 @@ export default function SettingsPage() {
                     value={modelConfig.imageApiKey}
                     onChange={(e) => setModelConfig({ ...modelConfig, imageApiKey: e.target.value })}
                     placeholder="留空则使用文本 API Key"
-                    className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-500/50 text-sm h-9"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-[#FF5A75]/50 text-sm h-9"
                   />
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function SettingsPage() {
               <Button
                 onClick={saveModelConfig}
                 disabled={saving || testing}
-                className="flex-1 h-10 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white shadow-lg shadow-pink-500/20"
+                className="flex-1 h-10 bg-gradient-to-r from-[#FF5A75] to-[#FF2442] hover:from-[#FF5A75]/90 hover:to-[#FF2442]/90 text-white shadow-lg shadow-[#FF2442]/20"
               >
                 {saving ? (
                   <>

@@ -491,7 +491,7 @@ function HomePageContent() {
                 <Button
                   onClick={handleGenerate}
                   disabled={isGenerating || isPublishing || !topic.trim()}
-                  className="w-full h-10 bg-linear-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium shadow-lg shadow-pink-500/20 disabled:opacity-50"
+                  className="w-full h-10 bg-linear-to-r from-[#FF5A75] to-[#FF2442] hover:from-[#FF5A75]/90 hover:to-[#FF2442]/90 text-white font-medium shadow-lg shadow-[#FF2442]/20 disabled:opacity-50"
                 >
                   {isGenerating ? (
                     <>

@@ -231,7 +231,7 @@ export default function ConversationPage() {
                       <p className="text-gray-400">还没有对话会话</p>
                       <Button
                         onClick={startConversation}
-                        className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
+                        className="bg-gradient-to-r from-[#FF5A75] to-[#FF2442] hover:from-[#FF5A75]/90 hover:to-[#FF2442]/90 text-white"
                       >
                         开始对话
                       </Button>
