@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CheckCircle2, XCircle, Terminal, RefreshCw, Cookie, Smartphone } from 'lucide-react';
+import { Loader2, CheckCircle2, XCircle, Terminal, RefreshCw, Cookie, Smartphone, Database } from 'lucide-react';
 import { useToast } from '@/components/ui/toast';
 
 export default function LoginPage() {
@@ -15,10 +15,9 @@ export default function LoginPage() {
     isLoggedIn: boolean;
     url: string;
     message: string;
-    cookieFileExists?: boolean;
+    cookieExists?: boolean;
     cookieValid?: boolean;
   } | null>(null);
-  const [cookieExists, setCookieExists] = useState(false);
   const [loginProgress, setLoginProgress] = useState('');
 
   const checkLoginStatus = async () => {
@@ -29,7 +28,6 @@ export default function LoginPage() {
 
       if (data.success) {
         setLoginStatus(data.data);
-        setCookieExists(data.data.cookieFileExists || false);
         if (data.data.isLoggedIn) {
           toast.success('已登录');
         }
@@ -220,17 +218,18 @@ export default function LoginPage() {
                   </Badge>
                 </div>
 
-                {/* Cookie 文件状态 */}
+                {/* Cookie 状态 */}
                 <div className="p-3 rounded-lg bg-white/5 border border-white/10">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Cookie className="w-4 h-4 text-purple-400" />
-                      <span className="text-sm text-gray-300">config/cookies.json</span>
+                      <Database className="w-4 h-4 text-purple-400" />
+                      <span className="text-sm text-gray-300">SQLite 数据库</span>
                     </div>
-                    <Badge variant={loginStatus.cookieFileExists ? 'default' : 'secondary'} className={loginStatus.cookieFileExists ? 'bg-green-500/20 text-green-400 border-green-500/50' : ''}>
-                      {loginStatus.cookieFileExists ? '有效' : '不存在/无效'}
+                    <Badge variant={loginStatus.cookieExists ? 'default' : 'secondary'} className={loginStatus.cookieExists ? 'bg-green-500/20 text-green-400 border-green-500/50' : ''}>
+                      {loginStatus.cookieExists ? 'Cookie 已保存' : '未保存'}
                     </Badge>
                   </div>
+                  <p className="text-xs text-gray-500 mt-2">data/agent.db</p>
                 </div>
 
                 <div className="flex gap-2">

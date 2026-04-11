@@ -422,15 +422,48 @@ xiaohongshu-agent/
 
 ## 配置系统
 
-所有配置数据统一存储在 SQLite 数据库 (`data/agent.db`) 中。
+### 1. 模型配置 (`config/model-config.json`)
 
-### 1. 模型配置 (通过 Web UI 管理)
+```json
+{
+  "textProvider": "qwen",
+  "textApiKey": "sk-xxx",
+  "imageProvider": "qwen",
+  "imageApiKey": "sk-xxx",
+  "videoProvider": "minimax",
+  "videoApiKey": "sk-xxx"
+}
+```
 
-访问 http://localhost:3000/settings 配置模型。
+### 2. 用户配置 (`config/user-profile.json`)
 
-### 2. 用户配置 (通过 Web UI 管理)
-
-访问 http://localhost:3000/profile 配置个人偏好。
+```json
+{
+  "user": {
+    "name": "博主名称",
+    "brand": "生活美学博主",
+    "description": "热爱生活的创业公司老板",
+    "targetAudience": "25-35岁都市白领",
+    "tone": "亲切自然",
+    "preferences": {
+      "styles": ["生活分享", "清新自然"],
+      "topics": ["日常生活", "好物推荐"],
+      "emojiUsage": "适量"
+    }
+  },
+  "content": {
+    "keywords": ["生活", "美学", "品质"],
+    "bannedWords": ["最", "第一", "绝对"],
+    "recommendedPhrases": ["分享", "推荐", "真实"]
+  },
+  "publishing": {
+    "preferredTimes": ["09:00", "12:00", "18:00"],
+    "frequency": "每天1-3篇",
+    "autoPublish": false,
+    "requireReview": true
+  }
+}
+```
 
 ### 3. 提示词配置 (`prompts/prompts.json`)
 

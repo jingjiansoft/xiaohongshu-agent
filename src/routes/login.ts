@@ -6,48 +6,45 @@ import { Router } from 'express';
 import { BrowserManager } from '../core/browser.js';
 import { cookieManager } from '../core/cookie-manager.js';
 import { logger } from '../utils/logger.js';
-import { existsSync } from 'fs';
-import { join } from 'path';
 
 const router = Router();
-const COOKIE_PATH = join(process.cwd(), 'config', 'cookies.json');
 
 /**
  * GET /api/login/status
  * 检查当前登录状态
  */
 router.get('/status', async (req, res) => {
-  // 1. 首先检查 Cookie 文件是否存在
-  const cookieFileExists = existsSync(COOKIE_PATH);
+  // 1. 首先从 SQLite 加载 Cookie
+  const cookies = await cookieManager.load();
+  const hasCookies = cookies.length > 0;
 
-  if (cookieFileExists) {
-    // 2. Cookie 文件存在，加载并验证
-    const cookies = await cookieManager.load();
+  if (hasCookies) {
+    // 2. Cookie 存在，验证有效性
     const isValid = await cookieManager.validate(cookies);
 
     if (isValid) {
-      logger.info('Cookie 文件存在且有效');
+      logger.info('Cookie 存在且有效');
       res.json({
         success: true,
         data: {
           isLoggedIn: true,
           url: 'https://creator.xiaohongshu.com/new/home',
           message: '已登录（Cookie 有效）',
-          cookieFileExists: true,
+          cookieExists: true,
           cookieValid: true,
         },
       });
       return;
     } else {
-      logger.info('Cookie 文件存在但已失效，需要重新登录');
+      logger.info('Cookie 存在但已失效，需要重新登录');
     }
   }
 
-  // 3. Cookie 文件不存在或无效，启动浏览器检查登录状态
+  // 3. Cookie 不存在或无效，启动浏览器检查登录状态
   const browserManager = new BrowserManager();
 
   try {
-    logger.info('Cookie 文件不存在或无效，启动浏览器检查登录状态...');
+    logger.info('Cookie 不存在或无效，启动浏览器检查登录状态...');
 
     // 启动浏览器（无头模式）
     const page = await browserManager.launch(true);
@@ -75,7 +72,7 @@ router.get('/status', async (req, res) => {
           isLoggedIn: true,
           url: currentUrl,
           message: '已登录（已自动保存 Cookie）',
-          cookieFileExists: true,
+          cookieExists: true,
           cookieValid: true,
         },
       });
@@ -101,7 +98,7 @@ router.get('/status', async (req, res) => {
             isLoggedIn: true,
             url: page.url(),
             message: '登录成功，已保存 Cookie',
-            cookieFileExists: true,
+            cookieExists: true,
             cookieValid: true,
           },
         });
@@ -113,7 +110,7 @@ router.get('/status', async (req, res) => {
             isLoggedIn: false,
             url: currentUrl,
             message: '未登录，请刷新页面重试或访问 /api/login/initiate 进行登录',
-            cookieFileExists: false,
+            cookieExists: false,
             cookieValid: false,
           },
         });
@@ -127,7 +124,7 @@ router.get('/status', async (req, res) => {
         isLoggedIn: false,
         url: '',
         message: '检查登录状态失败：' + (error as Error).message,
-        cookieFileExists: false,
+        cookieExists: false,
         cookieValid: false,
       },
     });
@@ -192,6 +189,59 @@ router.post('/initiate', async (req, res) => {
     res.status(500).json({
       success: false,
       message: '启动登录流程失败：' + (error as Error).message,
+    });
+  }
+});
+
+/**
+ * POST /api/login/save
+ * 保存 Cookie 到 SQLite
+ */
+router.post('/save', async (req, res) => {
+  try {
+    const { cookies } = req.body;
+
+    if (!cookies || !Array.isArray(cookies)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Cookie 数据格式错误',
+      });
+    }
+
+    await cookieManager.save(cookies);
+
+    logger.info('Cookie 保存成功', { count: cookies.length });
+    res.json({
+      success: true,
+      message: 'Cookie 保存成功',
+      count: cookies.length,
+    });
+  } catch (error) {
+    logger.error('保存 Cookie 失败', { error: (error as Error).message });
+    res.status(500).json({
+      success: false,
+      message: '保存 Cookie 失败：' + (error as Error).message,
+    });
+  }
+});
+
+/**
+ * GET /api/login/status
+ * 检查 Cookie 状态
+ */
+router.get('/status', async (req, res) => {
+  try {
+    const cookies = await cookieManager.load();
+    res.json({
+      success: true,
+      exists: cookies.length > 0,
+      count: cookies.length,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      exists: false,
+      count: 0,
     });
   }
 });

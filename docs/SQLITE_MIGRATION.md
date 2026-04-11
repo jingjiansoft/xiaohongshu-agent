@@ -10,7 +10,9 @@
 |--------|----------|------|
 | `config/user-profile.json` | `settings` 表 (key: 'user_profile') | 用户配置、偏好设置 |
 | `config/model-config.json` | `settings` 表 (key: 'model_config') | 模型配置、API Key |
-| `config/cookies.json` | `cookies` 表 | 小红书登录 Cookie |
+| `config/cookies.json` | `cookies` 表 | 小红书登录 Cookie（仅旧版本） |
+
+**注意**：新版本默认使用 SQLite 存储所有配置，`config/cookies.json` 已不再使用。
 
 ## 迁移步骤
 
@@ -21,9 +23,8 @@
 mkdir -p config/backup
 
 # 备份现有配置
-cp config/user-profile.json config/backup/
-cp config/model-config.json config/backup/
-cp config/cookies.json config/backup/
+cp config/user-profile.json config/backup/ 2>/dev/null || true
+cp config/model-config.json config/backup/ 2>/dev/null || true
 ```
 
 ### 2. 运行迁移脚本
@@ -60,7 +61,6 @@ npm run health
 # 删除配置文件（保留 *.example.json 示例文件）
 rm config/user-profile.json
 rm config/model-config.json
-rm config/cookies.json
 ```
 
 ## 验证 Web 界面

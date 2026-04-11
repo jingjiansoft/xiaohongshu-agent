@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { dirname, join } from 'path';
 
-const COOKIE_PATH = join(process.cwd(), '..', 'config', 'cookies.json');
-
-// POST /api/login/save - 保存完整 Cookie 到文件
+// POST /api/login/save - 保存 Cookie 到 SQLite
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -17,36 +13,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 确保目录存在
-    await mkdir(dirname(COOKIE_PATH), { recursive: true });
-
-    // 保存完整的 Cookie 对象（包含所有属性）
-    const cookieData = {
-      cookies: cookies.map((cookie: any) => ({
-        name: cookie.name,
-        value: cookie.value,
-        domain: cookie.domain || '.xiaohongshu.com',
-        path: cookie.path || '/',
-        httpOnly: cookie.httpOnly || false,
-        secure: cookie.secure || false,
-        expires: cookie.expires || -1,
-        sameSite: cookie.sameSite || 'Lax',
-      })),
-      savedAt: new Date().toISOString(),
-      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    };
-
-    // 保存到文件
-    await writeFile(COOKIE_PATH, JSON.stringify(cookieData, null, 2), 'utf-8');
-
-    console.log('✅ Cookie 已保存到:', COOKIE_PATH, '共', cookies.length, '个');
-
-    return NextResponse.json({
-      success: true,
-      message: 'Cookie 保存成功',
-      count: cookies.length,
-      path: COOKIE_PATH,
+    // 调用后端 API 保存到 SQLite
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/api/cookie/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cookies }),
     });
+
+    const data = await response.json();
+
+    if (data.success) {
+      return NextResponse.json({
+        success: true,
+        message: 'Cookie 保存成功',
+        count: cookies.length,
+      });
+    } else {
+      return NextResponse.json(
+        { success: false, message: data.message || '保存失败' },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error('保存 Cookie 失败:', error);
     return NextResponse.json(
@@ -56,22 +44,23 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET /api/login/save - 检查 Cookie 文件
+// GET /api/login/save - 检查 Cookie 状态
 export async function GET() {
   try {
-    const { readFile } = await import('fs/promises');
-    await readFile(COOKIE_PATH, 'utf-8');
-    
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/api/cookie/status`);
+    const data = await response.json();
+
     return NextResponse.json({
       success: true,
-      exists: true,
-      path: COOKIE_PATH,
+      exists: data.exists || false,
+      count: data.count || 0,
     });
   } catch (error) {
     return NextResponse.json({
       success: true,
       exists: false,
-      path: COOKIE_PATH,
+      count: 0,
     });
   }
 }

@@ -20,7 +20,7 @@ export type { OrchestratorConfig, PublishTask } from './core/orchestrator.js';
 export * from './core/publisher.js';
 export * from './core/browser.js';
 export { cookieManager } from './core/cookie-manager.js';
-export type { SavedCookie, CookieFile } from './core/cookie-manager.js';
+export type { SavedCookie, CookieData } from './core/cookie-manager.js';
 
 // 导出配置和工具
 export { loadConfig } from './config.js';

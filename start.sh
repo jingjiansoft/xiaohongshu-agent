@@ -13,13 +13,6 @@ if [ ! -f ".env" ]; then
   echo ""
 fi
 
-# 检查 Cookie
-if [ ! -f "config/cookies.json" ]; then
-  echo "⚠️  警告：Cookie 文件不存在"
-  echo "   请先运行：npm run test:login"
-  echo ""
-fi
-
 # 启动后端服务（后台运行）
 echo "📡 启动后端 API 服务..."
 npm run server &

@@ -281,8 +281,8 @@ cp config/user-profile.example.json config/user-profile.json
 ## 🔐 安全说明
 
 - ✅ Token 保存在 `.secrets/github.env`，已加入 `.gitignore`
-- ✅ Cookie 保存在 `config/cookies.json`，已加入 `.gitignore`
-- ✅ 用户配置 `config/user-profile.json` 已加入 `.gitignore`
+- ✅ Cookie 保存在 `data/agent.db` (SQLite)，已加入 `.gitignore`
+- ✅ 用户配置保存在 SQLite 数据库，已加入 `.gitignore`
 - ✅ 仓库设置为 Private，仅组织成员可见
 - ⚠️ 不要将 Cookie 和 Token 泄露给他人
 

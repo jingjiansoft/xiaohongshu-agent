@@ -15,9 +15,7 @@ export interface Config {
     slowMo: number;
     timeout: number;
   };
-  
-  cookiePath: string;
-  
+
   xiaohongshu: {
     baseUrl: string;
     publishUrl: string;
@@ -42,9 +40,7 @@ export const defaultConfig: Config = {
     slowMo: 100,
     timeout: 30000,
   },
-  
-  cookiePath: resolve(process.cwd(), 'config/cookies.json'),
-  
+
   xiaohongshu: {
     baseUrl: 'https://creator.xiaohongshu.com',
     publishUrl: 'https://creator.xiaohongshu.com/publish/publish',
